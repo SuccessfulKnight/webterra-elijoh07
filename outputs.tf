@@ -1,9 +1,10 @@
 # Load Balancer Public IP
 output "loadbalancer_ip" {
   description = "Public IP address of the Load Balancer"
-  value       = module.network.lb_public_ip
+  value       = [
+    module.load_balancer.lb_private_ip
+  ]
 }
-
 # VM Public IPs
 output "web_public_ips" {
   description = "Public IP addresses of the Virtual Machines"
@@ -16,6 +17,13 @@ output "db1_public_ips" {
   description = "Public IP addresses of the Virtual Machines"
   value = [
     module.network.db1_public_ip # DB1 VM
+  ]
+}
+
+output "db2_public_ips" {
+  description = "Public IP addresses of the Virtual Machines"
+  value = [
+    module.network.db2_public_ip # DB1 VM
   ]
 }
 

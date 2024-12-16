@@ -28,11 +28,8 @@ resource "azurerm_linux_virtual_machine" "vm" {
     type     = "ssh"
     user     = var.admin_username
     password = var.admin_password
-    host     = var.vm_name == "db2-vm" ? var.db2_private_ip : self.public_ip_address
-
-    # Use DB1's public IP as the bastion/jump host only for DB2
-    bastion_host = var.vm_name == "db2-vm" ? var.db1_public_ip : null
-  }
+   host     = self.public_ip_address
+  } 
 
   # Provisioner: Copy script file
   provisioner "file" {

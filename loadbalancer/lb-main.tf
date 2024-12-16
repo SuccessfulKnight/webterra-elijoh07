@@ -6,11 +6,11 @@ resource "azurerm_lb" "main" {
   sku                 = "Standard"
 
   frontend_ip_configuration {
-    name                 = "frontend"
-    public_ip_address_id = var.public_ip_address_id
+    name                          = "frontend"
+    private_ip_address_allocation = "Dynamic" # or "Static"
+    subnet_id                     = var.subnet_id
   }
 }
-
 # Backend Address Pool
 resource "azurerm_lb_backend_address_pool" "main" {
   name            = "db-backend-pool"
@@ -32,7 +32,7 @@ resource "azurerm_lb_rule" "main" {
   protocol                       = "Tcp"
   frontend_port                  = 5432
   backend_port                   = 5432
-  frontend_ip_configuration_name = "frontend" # Match frontend configuration name
+  frontend_ip_configuration_name = "frontend"
   backend_address_pool_ids       = [azurerm_lb_backend_address_pool.main.id]
   probe_id                       = azurerm_lb_probe.main.id
 }
@@ -41,12 +41,11 @@ resource "azurerm_lb_rule" "main" {
 resource "azurerm_network_interface_backend_address_pool_association" "db1" {
   network_interface_id    = var.db1_nic_id
   backend_address_pool_id = azurerm_lb_backend_address_pool.main.id
-  ip_configuration_name   = "db1-ip-config" # Match name from NIC resource
+  ip_configuration_name   = "db1-ip-config"
 }
 
-# Backend Address Pool Association for DB2 VM NIC
 resource "azurerm_network_interface_backend_address_pool_association" "db2" {
   network_interface_id    = var.db2_nic_id
   backend_address_pool_id = azurerm_lb_backend_address_pool.main.id
-  ip_configuration_name   = "db2-ip-config" # Match name from NIC resource
+  ip_configuration_name   = "db2-ip-config"
 }

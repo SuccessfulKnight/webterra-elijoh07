@@ -23,7 +23,7 @@ resource "azurerm_subnet" "db" {
 }
 
 # Public IP for Load Balancer
-resource "azurerm_public_ip" "lb" {
+resource "azurerm_public_ip" "db2" {
   name                = "lb-public-ip"
   location            = var.location
   resource_group_name = var.resource_group_name
@@ -40,7 +40,7 @@ resource "azurerm_public_ip" "db1" {
   sku                 = "Standard"
 }
 
-# Separate Public IP for Web NIC (to avoid conflict with Load Balancer)
+# Separate Public IP for Web NIC
 resource "azurerm_public_ip" "web_nic" {
   name                = "web-nic-public-ip"
   location            = var.location
@@ -137,5 +137,6 @@ resource "azurerm_network_interface" "db2" {
     name                          = "db2-ip-config"
     subnet_id                     = azurerm_subnet.db.id
     private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.db2.id
   }
 }

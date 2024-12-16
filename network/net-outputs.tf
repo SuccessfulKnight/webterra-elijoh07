@@ -18,18 +18,6 @@ output "db_subnet_id" {
   value = azurerm_subnet.db.id
 }
 
-# Load Balancer Public IP
-output "lb_public_ip_id" {
-  description = "ID of the Public IP for the Load Balancer"
-  value       = azurerm_public_ip.lb.id
-}
-
-# Output for Load Balancer Public IP Address (Optional, if needed)
-output "lb_public_ip" {
-  description = "Public IP address of the Load Balancer"
-  value       = azurerm_public_ip.lb.ip_address
-}
-
 # Web VM Public IP
 output "web_public_ip" {
   description = "Public IP address of the Web VM"
@@ -40,6 +28,11 @@ output "web_public_ip" {
 output "db1_public_ip" {
   description = "Public IP address of Database VM1"
   value       = azurerm_public_ip.db1.ip_address
+}
+
+output "db2_public_ip" {
+  description = "Public IP address of Database VM1"
+  value       = azurerm_public_ip.db2.ip_address
 }
 
 # Private IPs
@@ -57,4 +50,6 @@ output "db2_private_ip" {
   description = "Private IP address of Database VM2"
   value       = azurerm_network_interface.db2.ip_configuration[0].private_ip_address
 }
+
+
 
