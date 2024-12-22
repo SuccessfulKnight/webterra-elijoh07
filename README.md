@@ -1,47 +1,39 @@
-# webterra-elijoh07
-Dette prosjektet setter opp en infrastruktur i Azure ved hjelp av Terraform. Oppsettet inkluderer:
+Terraform-prosjekt for webserver og Postgres-database på Azure
+Dette prosjektet bruker Terraform for å sette opp en webserver og en Postgres-database. Webserveren kjører Gunicorn som kobler seg til Postgres-loadbalanseren. 
 
-Web-VM: Kjører en Flask-applikasjon som viser data fra databasen.
-Databaser (DB1 og DB2): PostgreSQL-databaser med et eksempeloppsett.
-Lastbalanserer: Fordeler trafikk mellom databasene
+Prosjektstruktur
+main.tf: Hovedkonfigurasjonsfil for Terraform.
+web og db: konfigurasjon av webserveren og oppsett av databasen
+variables.tf: Definisjon av variabler for Terraform.
+outputs.tf: 
 
-standard bruker: azureadmin
-standard passord: CiAdm@1234
+Infrastrukturkomponenter
+Azure Virtual Machines:
+Webserver-VM: Kjører Gunicorn og Flask.
+Databaseserver-VM-er: Kjører PostgreSQL og er konfigurert i en backend-pool.
 
-steg for å kjøre terraformen:
+Azure Load Balancer:
+Distribuerer trafikk til databaseserverne på port 5234.
 
-    1.åpne opp powershell:
-    åpne opp powershell
+Nettverk:
+Virtual Network og Subnets: Separate subnets for web- og databaseservere.
+Network Security Groups: Kontrollerer trafikk inn og ut.
+Oppsettinstruksjoner
 
-    2.Logg inn i Azure:
-    az login
+Forutsetninger
+Installert Terraform.
+En Azure-konto med nødvendige rettigheter.
+Installert og autentisert Azure CLI (az login).
+Steg-for-steg
 
-    3.Konfigurer Terraform:
-    Åpne variables.tf i root mappen og sett inn verdier for det du ønsker
+Gjør de endringene du vil i terraform.tfvars
+TERRAFORM
 
-    4.Initier Terraform:
-    terraform init -upgrade
+az logout ; az login --scope https://management.core.windows.net//.default
+terraform init
+terraform plan -out main.tfplan
+terraform apply
+Kopier public ipen du blir foret med i terminalen.
+TESTING
 
-    5.Planlegg Terraform:
-    terraform plan -out main.tfplan
-
-    6.Opprett Terraform:
-    terraform apply
-
-    7.Finn Web-VM sin offentlige IP:
-    etter programmet er kjørt skal den dukke opp
-
-    8.Besøk nettsiden:
-    <web-vm-ip:80>
-    husk port 80 etter ip addressen til web vm
-
-    9.ødelegg terraform:
-    når du er ferdig
-    terraform destroy
-
-
-Dette prosjektet oppretter en tjenester i Azure som inkluderer:
-
-En Flask som viser data fra en PostgreSQL-database.
-En lastbalanserer.
-To databaser.
+Bruk ipen i nettleseren 

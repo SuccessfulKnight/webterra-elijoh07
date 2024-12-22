@@ -42,7 +42,7 @@ module "db_vm1" {
   admin_username        = var.admin_username
   admin_password        = var.admin_password
   vm_name               = "db1-vm"
-  provision_script_path = "./db.sh"
+  provision_script_path = "./db1.sh"
 }
 
 module "db_vm2" {
@@ -53,5 +53,5 @@ module "db_vm2" {
   admin_username        = var.admin_username
   admin_password        = var.admin_password
   vm_name               = "db2-vm"
-  provision_script_path = "./db.sh"
+  provision_script_path = "./db2.sh"
 }

@@ -20,9 +20,9 @@ CREATE TABLE example_table (
 );
 
 INSERT INTO example_table (name, description) VALUES
-  ('Item 1', 'This is the first item'),
-  ('Item 2', 'This is the second item'),
-  ('Item 3', 'This is the third item');
+  ('Database 1', ''),
+  ('Database 1', ''),
+  ('Database 1', '');
 
 ALTER USER postgres WITH PASSWORD 'postgres';
 EOF
